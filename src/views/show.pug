@@ -19,17 +19,11 @@ html(lang="en")
           textarea(id="note" name="note", cols="30", rows="5")
         input(type="submit" value="Save")
     div.note-container
-        //-if notes
-        //-    .note
-        //-    span.hidden #{note._id}
-        //-    h2.note_title #{note.title}
-        //-    p.note_body #{note.description}
-        //-    .note_button_box 
-        //-      button(class="note_button note_biew") View Detail
-        //-      button(class="note_button note_delete") Delete Note
-        //-      button(class="note_button note_download") Download Note
-        //-else
-        //-  h2  sorry nothing memo in here
+        if test
+          each potato in test
+            h2=note
+        else
+          h2  sorry nothing memo in here
     div.modal-wrapper
       div.modal
         button.modal_btn &times;
