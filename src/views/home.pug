@@ -16,31 +16,11 @@ html(lang="en")
         label(for="title") Title
           input(type="text" placeholder="Enter your memo" id="title")
         label(for="note") Note
-          textarea(name="NotePad", cols="30", rows="5")
+          textarea(id="note" name="note", cols="30", rows="5")
         input(type="submit" value="Save")
     div.note-container
-      div.note
-        h2.note_title sample title
-        p.note_body Sample Note bodysdfsd Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum repellendus, eum ipsa quasi et, maiores dolorum minus dolorem, voluptates ipsam magni? Praesentium, minima. Temporibus ratione eaque iure mollitia omnis saepe!
-        div.note_button_box
-          button(class="note_button note_view") view detail
-          button(class="note_button note_delete") delete Note
-          button(class="note_button note_download") download
-      div.note
-        h2.note_title sample title
-        p.note_body Sample Note bodysdfsd Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum repellendus, eum ipsa quasi et, maiores dolorum minus dolorem, voluptates ipsam magni? Praesentium, minima. Temporibus ratione eaque iure mollitia omnis saepe!
-        div.note_button_box
-          button(class="note_button note_view") view detail
-          button(class="note_button note_delete") delete Note
-          button(class="note_button note_download") download
-      div.note
-        h2.note_title sample title
-        p.note_body Sample Note bodysdfsd Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum repellendus, eum ipsa quasi et, maiores dolorum minus dolorem, voluptates ipsam magni? Praesentium, minima. Temporibus ratione eaque iure mollitia omnis saepe!
-        div.note_button_box
-          button(class="note_button note_view") view detail
-          button(class="note_button note_delete") delete Note
-          button(class="note_button note_download") download
-    
+
+
     div.modal-wrapper
       div.modal
         button.modal_btn &times;
