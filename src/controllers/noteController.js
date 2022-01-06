@@ -1,9 +1,7 @@
 import Note from "../models/note";
 
-export const getMain = async (req, res, next) => {
-  const notes = await Note.find({});
-
-  return res.render("home", notes);
+export const getMain = (req, res, next) => {
+  return res.render("home");
 };
 
 export const saveNote = async (req, res, next) => {

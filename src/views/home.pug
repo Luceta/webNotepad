@@ -9,8 +9,6 @@ html(lang="en")
     title Main Notepad
   body
     h1 Web Notepad
-    //-div(class="message alert-message") hi message
-
     div.form-wrapper
       form
         label(for="title") Title
@@ -19,21 +17,5 @@ html(lang="en")
           textarea(id="note" name="note", cols="30", rows="5")
         input(type="submit" value="Save")
     div.note-container
-        //-if notes
-        //-    .note
-        //-    span.hidden #{note._id}
-        //-    h2.note_title #{note.title}
-        //-    p.note_body #{note.description}
-        //-    .note_button_box 
-        //-      button(class="note_button note_biew") View Detail
-        //-      button(class="note_button note_delete") Delete Note
-        //-      button(class="note_button note_download") Download Note
-        //-else
-        //-  h2  sorry nothing memo in here
-    div.modal-wrapper
-      div.modal
-        button.modal_btn &times;
-        h2.modal_title Title here
-        p.modal_body Lorem ipsum dolor sit amet consectetur adipisicing.
 
     script(src="/public/js/app.js")

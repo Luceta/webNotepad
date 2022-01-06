@@ -1,5 +1,5 @@
 const noteContainer = document.querySelector(".note-container");
-const modalContainer = document.querySelector(".modal-container");
+const modalContainer = document.querySelector(".modal-wrapper");
 const form = document.querySelector("form");
 const title = document.querySelector("#title");
 const BASE_URI = "http://localhost:4000";
@@ -21,7 +21,7 @@ function addNoteToList(note) {
     <h2 class="note_title">${note.title}</h2>
     <p class="note_body">${note.body}</p>
     <div class="note_button_box">
-      <button class="note_button note_view">View Detail</button>
+      <button class="note_button note_edit">edit Note</button>
       <button class="note_button note_delete">Delete Note</button>
       <button class="note_button note_download">Download Note</button>
     </div>
@@ -77,6 +77,14 @@ function handleForm(event) {
   } else {
     showAlertMessage("required to wite title and description", "alert-message");
   }
+}
+
+function activateNoteModal(title, body) {
+  const modalTitle = document.querySelector(".modal_title");
+  const modalBody = document.querySelector(".modal_body");
+  modalTitle.textContent = title;
+  modalBody.textContent = body;
+  modalContainer.classList.add("active");
 }
 
 async function displayNotes() {
