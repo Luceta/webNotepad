@@ -29,3 +29,22 @@ export const deleteNote = async (req, res, next) => {
     return res.json({ message: "Internal Server Error" });
   }
 };
+
+export const editNote = async (req, res, next) => {
+  try {
+    const { title, description, id: noteId } = req.body.note;
+    await Note.findByIdAndUpdate(noteId, {
+      title,
+      description,
+    });
+    return res.json({ result: "ok", message: "note is updated" });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getEditNote = (req, res, next) => {
+  const noteId = req.query.id;
+
+  return res.render("edit", { noteId });
+};

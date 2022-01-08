@@ -5,6 +5,8 @@ import {
   getMain,
   saveNote,
   getNotes,
+  editNote,
+  getEditNote,
   deleteNote,
 } from "./controllers/noteController";
 import "./db";
@@ -22,6 +24,8 @@ app.use(express.urlencoded({ extended: false }));
 app.get("/", getMain);
 app.get("/notes", getNotes);
 app.post("/create", saveNote);
+app.put("/edit", editNote);
+app.get("/edit", getEditNote);
 app.delete("/delete", deleteNote);
 
 const handleListen = () =>

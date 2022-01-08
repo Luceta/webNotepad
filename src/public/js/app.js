@@ -93,9 +93,11 @@ function activateNoteModal(title, body) {
 
 async function displayNotes() {
   const requestNotes = await getNotes();
+  console.log(requestNotes, "check all data note");
   const notes = await requestNotes.notes;
+  console.log(notes, "notes???");
   notes.forEach((note) => {
-    addNoteToList(note);
+    addNoteToList(note, note._id);
   });
 }
 
@@ -116,7 +118,9 @@ const deleteNotesToDb = async (noteId) => {
 };
 
 async function handleNote(event) {
-  if (event.target.classList.contains("note_delete")) {
+  const deleteNote = event.target.classList.contains("note_delete");
+  const editNote = event.target.classList.contains("note_edit");
+  if (deleteNote) {
     const currentNote = event.target.closest(".note");
     showAlertMessage("Your note will deleted", "delete-message");
     const id = currentNote.dataset.set;
@@ -125,6 +129,13 @@ async function handleNote(event) {
     if (deleteRequest.result === "ok") {
       currentNote.remove();
     }
+  }
+
+  if (editNote) {
+    const currentNote = event.target.closest(".note");
+    showAlertMessage("Your note will edit", "success-message");
+    const id = currentNote.dataset.set;
+    window.location.href = `/edit?id=${id}`;
   }
 }
 
