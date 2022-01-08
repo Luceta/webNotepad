@@ -1,6 +1,3 @@
-import test1 from "../constant/contant";
-
-console.log(test1);
 const form = document.querySelector("form");
 const BASE_URI = "http://localhost:4000";
 

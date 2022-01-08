@@ -15,8 +15,8 @@ class Note {
 function addNoteToList(note, noteId) {
   const newUINote = document.createElement("div");
   newUINote.classList.add("note");
-  newUINote.setAttribute("data-set", noteId);
   newUINote.innerHTML = `
+    <span hidden>${noteId}</span>
     <h2 class="note_title">${note.title}</h2>
     <p class="note_body">${note.description}</p>
     <div class="note_button_box">
@@ -120,8 +120,8 @@ async function handleNote(event) {
   if (deleteNote) {
     const currentNote = event.target.closest(".note");
     showAlertMessage("Your note will deleted", "delete-message");
-    const id = currentNote.dataset.set;
-    const deleteRequest = await deleteNotesToDb(id);
+    const noteId = currentNote.querySelector("span").textContent;
+    const deleteRequest = await deleteNotesToDb(noteId);
 
     if (deleteRequest.result === "ok") {
       currentNote.remove();
@@ -131,9 +131,8 @@ async function handleNote(event) {
   if (editNote) {
     const currentNote = event.target.closest(".note");
     showAlertMessage("Your note will edit", "success-message");
-    const id = currentNote.dataset.set;
-    window.location.href = `/edit?id=${id}`;
-  }
+    const noteId = currentNote.querySelector("span").textContent;
+    window.location.href = `/edit?id=${noteId}`;
 }
 
 form.addEventListener("submit", handleForm);
