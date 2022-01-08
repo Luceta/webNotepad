@@ -5,21 +5,21 @@ const title = document.querySelector("#title");
 const BASE_URI = "http://localhost:4000";
 
 class Note {
-  constructor(title, body) {
+  constructor(title, description) {
     this.title = title;
-    this.body = body;
-    this.id = Math.random();
+    this.description = description;
   }
 }
 
 // UI updates on pug
-function addNoteToList(note) {
+function addNoteToList(note, noteId) {
+  console.log(note, "note check");
   const newUINote = document.createElement("div");
   newUINote.classList.add("note");
+  newUINote.setAttribute("data-set", noteId);
   newUINote.innerHTML = `
-    <span hidden>${note.id}</span>
     <h2 class="note_title">${note.title}</h2>
-    <p class="note_body">${note.body}</p>
+    <p class="note_body">${note.description}</p>
     <div class="note_button_box">
       <button class="note_button note_edit">edit Note</button>
       <button class="note_button note_delete">Delete Note</button>
@@ -44,6 +44,9 @@ const addNotesToDb = async (note) => {
       body: JSON.stringify(note),
       headers: { "Content-Type": "application/json" },
     });
+    const noteId = await (await request.json()).note._id;
+
+    return noteId;
   } catch (error) {
     console.log(error);
   }
@@ -60,7 +63,7 @@ function showAlertMessage(message, alertClass) {
 }
 
 // Event: note form submit
-function handleForm(event) {
+async function handleForm(event) {
   event.preventDefault();
   const titleInput = document.querySelector("#title");
   const noteInput = document.querySelector("#note");
@@ -68,8 +71,9 @@ function handleForm(event) {
   // validate inputs
   if (titleInput.value.length > 0 && noteInput.value.length > 0) {
     const newNote = new Note(titleInput.value, noteInput.value);
-    addNotesToDb(newNote);
-    addNoteToList(newNote);
+    console.log(newNote, "check");
+    const noteId = await addNotesToDb(newNote);
+    addNoteToList(newNote, noteId);
     titleInput.value = "";
     noteInput.value = "";
     showAlertMessage("Note successfully added", "success-message");
@@ -95,9 +99,40 @@ async function displayNotes() {
   });
 }
 
+const deleteNotesToDb = async (noteId) => {
+  try {
+    const request = await fetch(`${BASE_URI}/delete`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ noteId }),
+    });
+    const result = await request.json();
+    return result;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+async function handleNote(event) {
+  if (event.target.classList.contains("note_delete")) {
+    const currentNote = event.target.closest(".note");
+    showAlertMessage("Your note will deleted", "delete-message");
+    const id = currentNote.dataset.set;
+    const deleteRequest = await deleteNotesToDb(id);
+
+    if (deleteRequest.result === "ok") {
+      currentNote.remove();
+    }
+  }
+}
+
+form.addEventListener("submit", handleForm);
+noteContainer.addEventListener("click", handleNote);
+
 function init() {
   displayNotes();
 }
 
 init();
-form.addEventListener("submit", handleForm);

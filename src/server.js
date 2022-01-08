@@ -1,7 +1,12 @@
 import "dotenv/config";
 import express from "express";
 import logger from "morgan";
-import { getMain, saveNote, getNotes } from "./controllers/noteController";
+import {
+  getMain,
+  saveNote,
+  getNotes,
+  deleteNote,
+} from "./controllers/noteController";
 import "./db";
 
 const app = express();
@@ -17,6 +22,7 @@ app.use(express.urlencoded({ extended: false }));
 app.get("/", getMain);
 app.get("/notes", getNotes);
 app.post("/create", saveNote);
+app.delete("/delete", deleteNote);
 
 const handleListen = () =>
   console.log(`✅ Server listenting on http://localhost:${PORT} 🚀`);

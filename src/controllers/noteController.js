@@ -5,16 +5,27 @@ export const getMain = (req, res, next) => {
 };
 
 export const saveNote = async (req, res, next) => {
-  const { title, body: description } = req.body;
-  await Note.create({
+  const { title, description } = req.body;
+  const note = await Note.create({
     title,
     description,
   });
 
-  return res.json({ result: "ok", message: "note is saved" });
+  return res.json({ result: "ok", message: "note is saved", note });
 };
 
 export const getNotes = async (req, res, next) => {
   const notes = await Note.find({});
   return res.json({ result: "ok", notes });
+};
+
+export const deleteNote = async (req, res, next) => {
+  try {
+    const { noteId } = req.body;
+    await Note.findByIdAndDelete(noteId);
+    return res.json({ result: "ok", message: "note is deleted" });
+  } catch (error) {
+    console.log(error);
+    return res.json({ message: "Internal Server Error" });
+  }
 };
