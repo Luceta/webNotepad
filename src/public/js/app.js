@@ -13,7 +13,6 @@ class Note {
 
 // UI updates on pug
 function addNoteToList(note, noteId) {
-  console.log(note, "note check");
   const newUINote = document.createElement("div");
   newUINote.classList.add("note");
   newUINote.setAttribute("data-set", noteId);
@@ -93,9 +92,7 @@ function activateNoteModal(title, body) {
 
 async function displayNotes() {
   const requestNotes = await getNotes();
-  console.log(requestNotes, "check all data note");
   const notes = await requestNotes.notes;
-  console.log(notes, "notes???");
   notes.forEach((note) => {
     addNoteToList(note, note._id);
   });
